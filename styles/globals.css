@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --econova-dark: #273949;
+  --econova-lime: #b5e951;
+  --econova-slate: #1e2d3a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e9ecef;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #868e96;
+}
+
+/* Glowing effect for buttons */
+.glow-lime {
+  box-shadow: 0 4px 12px rgba(181, 233, 81, 0.25);
+}
+
+.glow-lime:hover {
+  box-shadow: 0 6px 16px rgba(181, 233, 81, 0.35);
+}
+
+/* Card clean effect */
+.glass-card {
+  background: white;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.glass-card:hover {
+  border-color: #b5e951;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Progress bar animation */
+.progress-fill {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--econova-lime);
+  box-shadow: 0 0 0 3px rgba(181, 233, 81, 0.2);
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(181, 233, 81, 0.3);
+  color: #273949;
+}
+
+/* Clean background */
+.animated-gradient {
+  background: #f8f9fa;
+}
+
+/* Floating particles effect */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(181, 233, 81, 0.3);
+  border-radius: 50%;
+  animation: float 20s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* Option card hover effect */
+.option-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+}
+
+.option-card.selected {
+  border-color: var(--econova-lime);
+  background: rgba(181, 233, 81, 0.1);
+}
+
+/* Typing animation for text */
+.typing-text {
+  overflow: hidden;
+  border-right: 2px solid var(--econova-lime);
+  white-space: nowrap;
+  animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--econova-lime) }
+}
+
+/* Chart animations */
+.chart-appear {
+  animation: chartAppear 1s ease-out forwards;
+}
+
+@keyframes chartAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Número contador animado */
+.counter {
+  font-variant-numeric: tabular-nums;
+}
