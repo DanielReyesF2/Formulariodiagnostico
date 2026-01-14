@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ 
       success: true, 
-      id: result[0].id 
+      id: Array.isArray(result) && result.length > 0 ? (result[0] as any).id : null
     }, { status: 200 });
 
   } catch (error) {
