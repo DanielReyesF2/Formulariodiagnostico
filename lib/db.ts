@@ -15,6 +15,6 @@ function getSql() {
 }
 
 // Exportar como función para que sea lazy
-export const sql = (...args: Parameters<ReturnType<typeof neon>>) => {
-  return getSql()(...args);
-};
+export const sql = ((strings: TemplateStringsArray, ...values: any[]) => {
+  return getSql()(strings, ...values);
+}) as ReturnType<typeof neon>;
