@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Leaf, Send, Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { questions, Question } from '@/lib/questions';
+import { calculateScore } from '@/lib/scoring';
 import { cn } from '@/lib/utils';
 
 export default function DiagnosticoPage() {
@@ -23,7 +24,7 @@ export default function DiagnosticoPage() {
     return title.replace('{{nombre}}', (answers.nombre as string) || 'amigo');
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isAnimating) return;
     
     // Validar respuesta requerida
@@ -33,7 +34,32 @@ export default function DiagnosticoPage() {
     }
 
     if (isLastQuestion) {
-      // Guardar en localStorage y navegar a resultados
+      // Calcular score y nivel
+      const result = calculateScore(answers);
+      
+      try {
+        // Guardar en la base de datos
+        const response = await fetch('/api/diagnostico', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            answers,
+            score: result.percentage,
+            nivel: result.level,
+          }),
+        });
+
+        if (!response.ok) {
+          console.error('Error al guardar en la base de datos');
+        }
+      } catch (error) {
+        console.error('Error al guardar diagnóstico:', error);
+        // Continuar aunque falle el guardado en BD
+      }
+
+      // Guardar en localStorage (fallback) y navegar a resultados
       localStorage.setItem('diagnostico_answers', JSON.stringify(answers));
       router.push('/diagnostico/resultados');
       return;
